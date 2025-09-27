@@ -416,7 +416,3 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-/FIAP_Cloud_Games.Application
-/FIAP_Cloud_Games.Domain
-/FIAP_Cloud_Games.Infrastructure
-/FIAP_Cloud_Games.Tests
