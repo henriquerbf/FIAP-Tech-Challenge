@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FIAP_Cloud_Games.Domain.Entities
+﻿namespace FIAP_Cloud_Games.Domain.Entities
 {
+    /// <summary>
+    /// Represents a game.
+    /// </summary>
     public class Game
     {
         // Properties
@@ -15,6 +11,7 @@ namespace FIAP_Cloud_Games.Domain.Entities
         public string Description { get; private set; }
         public string Genre { get; private set; }
         public DateTime ReleaseDate { get; private set; }
+        public DateTime AddedAtDate { get; private set; }
         public decimal Price { get; private set; }
         public decimal Discount { get; private set; }
         public decimal SalePrice => Price - (Price * Discount);
@@ -23,14 +20,57 @@ namespace FIAP_Cloud_Games.Domain.Entities
         private Game() { }
 
         // Constructor used when creating new instances
-        public Game(string title, string description, string genre, decimal price, DateTime releaseDate)
+        public Game(string title, string description, string genre, decimal price, DateTime releaseDate, decimal discount = 0)
         {
-            Title = title;
-            Description = description;
-            Genre = genre;
-            Price = price;
-            ReleaseDate = releaseDate;
+            UpdateTitle(title);
+            UpdateDescription(description);
+            UpdateGenre(genre);
+            UpdatePrice(price);
+            SetDiscount(discount);
+            SetReleaseDate(releaseDate);
+
+            Id = Guid.NewGuid();
+            AddedAtDate = DateTime.UtcNow;
         }
 
+        // Guard Methods
+        public void UpdateTitle(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+                throw new ArgumentException("Invalid title.");
+            Title = title;
+        }
+
+        public void UpdateDescription(string description)
+        {
+            Description = description ?? string.Empty;
+        }
+
+        public void UpdateGenre(string genre)
+        {
+            if (string.IsNullOrWhiteSpace(genre))
+                throw new ArgumentException("Invalid genre.");
+            Genre = genre;
+        }
+
+        public void UpdatePrice(decimal price)
+        {
+            if (price < 0)
+                throw new ArgumentException("Price cannot be negative.");
+            Price = price;
+        }
+
+        public void SetDiscount(decimal discount)
+        {
+            if (discount < 0 || discount > 1)
+                throw new ArgumentException("Discount must be between 0 and 1.");
+            Discount = discount;
+        }
+        public void SetReleaseDate(DateTime releaseDate)
+        {
+            if (releaseDate == default)
+                throw new ArgumentException("Release date is required.");
+            ReleaseDate = releaseDate;
+        }
     }
 }
