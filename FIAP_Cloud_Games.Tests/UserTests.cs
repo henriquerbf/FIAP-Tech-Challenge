@@ -68,6 +68,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -76,6 +77,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -84,6 +86,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         // -------------------------------------------------
@@ -98,6 +101,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
 
             // Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -106,6 +110,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -114,6 +119,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         // -------------------------------------------------
@@ -128,6 +134,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
 
             // Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -136,6 +143,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -144,6 +152,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         // -------------------------------------------------
@@ -158,6 +167,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
 
             // Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -166,6 +176,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -174,6 +185,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         // -------------------------------------------------
@@ -188,6 +200,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
 
             // Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -198,6 +211,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
 
             // Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -206,6 +220,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
 
         // -------------------------------------------------
@@ -220,6 +235,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
 
             // Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -230,6 +246,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
 
             // Assert
+            Assert.True(false);
         }
 
         [Fact]
@@ -238,6 +255,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
 
             // Act & Assert
+            Assert.True(false);
         }
     }
 }
