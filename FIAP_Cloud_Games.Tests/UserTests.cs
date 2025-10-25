@@ -55,9 +55,9 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         [Fact]
         public void Constructor_InvalidEmail_ShouldThrowArgumentException()
         {
-            var ex = Assert.Throws<InvalidOperationException>( () =>
+            var ex = Assert.Throws<ArgumentException>( () =>
             {
-                createValidUser("Fillipy", "Admin", "yes.com"); ;
+                createValidUser("Fillipy", "Admin", "yes@.com"); ;
             });
             Assert.Equal("Invalid email.", ex.Message);
         }
