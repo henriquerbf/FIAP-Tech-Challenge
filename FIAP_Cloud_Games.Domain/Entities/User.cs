@@ -1,4 +1,6 @@
-﻿namespace FIAP_Cloud_Games.Domain.Entities
+﻿using System.Text.RegularExpressions;
+
+namespace FIAP_Cloud_Games.Domain.Entities
 {
     /// <summary>
     /// Represents a system user (client or administrator).
@@ -37,10 +39,14 @@
             Name = name;
         }
 
+        private static readonly Regex EmailRegex = new Regex(
+        @"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase);
         public void UpdateEmail(string email)
         {
-            if (string.IsNullOrWhiteSpace(email) || !email.Contains("@"))
+            if (string.IsNullOrWhiteSpace(email) || !EmailRegex.IsMatch(email))
                 throw new ArgumentException("Invalid email.");
+
             Email = email;
         }
 
@@ -48,7 +54,7 @@
         public void ChangePassword(string password)
         {
             if (string.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Invalid password hash.");
+                throw new ArgumentException("Invalid password.");
             Password = password;
         }
 
