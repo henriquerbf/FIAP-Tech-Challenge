@@ -4,11 +4,16 @@ services: # Seção que lista os serviços (containers) do app.
   sqlserver: # Nome lógico do serviço (vai virar a rede DNS: sqlserver).
     image: mcr.microsoft.com/mssql/server:2022-latest # Imagem do SQL Server 2022.
     container_name: sqlserver2022 # Nome explícito do container (opcional; facilita comandos/identificação).
+    ports: # Mapeamentos de porta host:container.
+      - "1433:1433" # Expõe a 1433 do host para a 1433 do SQL Server no container.
     environment: # Variáveis de ambiente passadas ao container.
       ACCEPT_EULA: ${ACCEPT_EULA} # Aceita a licença (valor vem do arquivo .env).
       MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD} # Senha do usuário SA (do .env; NÃO commitá).
+      #MSSQL_MEMORY_LIMIT_MB: ${MSSQL_MEMORY_LIMIT_MB}  #limita a memória do SQL
       TZ: ${TZ} # Timezone do container (do .env), ex.: America/Sao_Paulo.
-    ports: # Mapeamentos de porta host:container.
-      - "1433:1433" # Expõe a 1433 do host para a 1433 do SQL Server no container.
+      MSSQL_PID: ${MSSQL_PID} # opcional: torne explícita a edição
     volumes: # Montagens de volumes.
-      - C:\\sqlserver_data:/var/opt/mssql # Bind mount: pasta do Windows -> diretório de dados do SQL Server.
+      - "C:\\sqlserver_data\\data:/var/opt/mssql/data"
+      - "C:\\sqlserver_data\\log:/var/opt/mssql/log"
+      - "C:\\sqlserver_data\\secrets:/var/opt/mssql/secrets"
+      - "C:\\sqlserver_data\\backup:/var/opt/mssql/backup"   # opcional
