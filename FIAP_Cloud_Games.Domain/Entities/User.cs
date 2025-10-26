@@ -55,6 +55,12 @@ namespace FIAP_Cloud_Games.Domain.Entities
         {
             if (string.IsNullOrWhiteSpace(password))
                 throw new ArgumentException("Invalid password.");
+            //mín. 8 caracteres
+            if (password.Length < 8)
+                throw new ArgumentException("Password should have at least 8 characteres");
+            //números
+            //letras
+            //caracteres especiais
             Password = password;
         }
 
