@@ -1,0 +1,14 @@
+﻿version: '3.9' # Versão do schema do Compose (ok no Compose v2/v3). Pode até omitir no Compose v2.
+
+services: # Seção que lista os serviços (containers) do app.
+  sqlserver: # Nome lógico do serviço (vai virar a rede DNS: sqlserver).
+    image: mcr.microsoft.com/mssql/server:2022-latest # Imagem do SQL Server 2022.
+    container_name: sqlserver2022 # Nome explícito do container (opcional; facilita comandos/identificação).
+    environment: # Variáveis de ambiente passadas ao container.
+      ACCEPT_EULA: ${ACCEPT_EULA} # Aceita a licença (valor vem do arquivo .env).
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD} # Senha do usuário SA (do .env; NÃO commitá).
+      TZ: ${TZ} # Timezone do container (do .env), ex.: America/Sao_Paulo.
+    ports: # Mapeamentos de porta host:container.
+      - "1433:1433" # Expõe a 1433 do host para a 1433 do SQL Server no container.
+    volumes: # Montagens de volumes.
+      - C:\\sqlserver_data:/var/opt/mssql # Bind mount: pasta do Windows -> diretório de dados do SQL Server.
