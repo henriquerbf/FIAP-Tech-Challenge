@@ -36,3 +36,21 @@ Opcionalmente:
 ---
 
 ## 📂 Estrutura do Projeto
+
+---
+
+## 🐳 Instruções para o Docker Copose
+Versão SQL utilizada:
+- docker pull mcr.microsoft.com/mssql/server:2022-latest
+
+Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáveis, defina os valores como preferir:
+     ACCEPT_EULA=Y
+     MSSQL_SA_PASSWORD=YourStrong!Passw0rd
+     TZ=America/Sao_Paulo
+     
+Como usar:
+- No terminal, vá até a pasta deste arquivo: cd caminho\da\pasta
+- Suba o container: docker compose up -d
+- Verifique se está rodando: docker ps
+
+---
