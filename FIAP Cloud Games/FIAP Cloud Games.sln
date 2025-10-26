@@ -15,8 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Tests", ".
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{380A7511-A354-6D7A-0CC0-8FA1F1BA7B6C}"
 	ProjectSection(SolutionItems) = preProject
-		.env = .env
-		docker-compose.yml = docker-compose.yml
+		..\.env = ..\.env
+		..\docker-compose.yml = ..\docker-compose.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{B3808C51-12A5-4D2D-81A3-5FF6F7FF53D3}"
