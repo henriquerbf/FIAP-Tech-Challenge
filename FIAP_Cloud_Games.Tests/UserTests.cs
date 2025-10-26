@@ -77,10 +77,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         public void Constructor_InvalidEmail_ShouldThrowArgumentException()
         {
             var user = CreateValidUser();   
-            var ex = Assert.Throws<ArgumentException>( () =>
-            {
-                user.UpdateEmail("yes@.com");
-            });
+            var ex = Assert.Throws<ArgumentException>( () => user.UpdateEmail("yes@.com"));
             Assert.Equal("Invalid email.", ex.Message);
         }
 
@@ -326,8 +323,11 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act & Assert
+            var ex = Assert.Throws<ArgumentException>(() => user.AcquireGame(null));
+            Assert.Equal("Objeto nulo para classe game.", ex.Message);
+
             // Comportamento atual: lança NullReferenceException ao acessar game.Id
-            Assert.Throws<NullReferenceException>(() => user.AcquireGame(null!));
+
         }
     }
 }

@@ -67,8 +67,19 @@ namespace FIAP_Cloud_Games.Domain.Entities
 
         public void AcquireGame(Game game)
         {
-            if (!Library.Any(g => g.Id == game.Id))
-                Library.Add(game);
+            try
+            {
+                if (game == null) throw 
+                        new ArgumentException("Objeto nulo para classe game.");
+
+                if (!Library.Any(g => g.Id == game.Id))
+                    Library.Add(game);
+            }
+            catch (Exception e)
+            {
+                var message = e.Message;
+                throw;
+            }
         }
     }
 }
