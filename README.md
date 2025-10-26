@@ -49,8 +49,7 @@ Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáve
     TZ=America/Sao_Paulo
      
 Como usar:
-- No terminal, vá até a pasta deste arquivo: cd caminho\da\pasta
-- Suba o container: docker compose up -d
+- Suba o container: docker compose -f "path\do\docker-compose.yml" up -d
 - Verifique se está rodando: docker ps
 
 ---
