@@ -236,21 +236,11 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var errorsList = JsonSerializer.Deserialize<List<string>>(ex.Message);
 
             // Assert
+            Assert.Contains("Password cannot be empty.", ex.Message);
             Assert.Contains("Password must be at least 8 characters long.", ex.Message);
             Assert.Contains("Password must contain at least one number.", ex.Message);
             Assert.Contains("Password must contain at least one special character.", ex.Message);
             Assert.Contains("Password must contain at least one special character.", ex.Message);
-        }
-
-        [Fact]
-        public void ChangePassword_NullOrEmptyPassword_ShouldThrowArgumentException()
-        {
-            // Arrange
-            var user = CreateValidUser();
-
-            // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.ChangePassword(null));
-            Assert.Equal("Invalid password.", ex.Message);
         }
 
         // -------------------------------------------------
