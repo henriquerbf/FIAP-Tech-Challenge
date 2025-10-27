@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace FIAP_Cloud_Games.Domain.Entities
 {
@@ -53,14 +54,31 @@ namespace FIAP_Cloud_Games.Domain.Entities
         // Business Methods
         public void ChangePassword(string password)
         {
+            var errors = new List<string>();
+            
+            //Is Not Null Or White Spaces
             if (string.IsNullOrWhiteSpace(password))
-                throw new ArgumentException("Invalid password.");
+                errors.Add("Password cannot be empty.");
             //mín. 8 caracteres
             if (password.Length < 8)
-                throw new ArgumentException("Password should have at least 8 characteres");
+                errors.Add("Password must be at least 8 characters long.");
             //números
+            if (!Regex.IsMatch(password, "[0-9]"))
+                errors.Add("Password must contain at least one number.");
             //letras
+            if (!Regex.IsMatch(password, "[a-zA-Z]"))
+                errors.Add("Password must contain at least one letter.");
             //caracteres especiais
+            if (!Regex.IsMatch(password, @"[!@#$%^&*(),.?""':{}|<>_\-+=\\/\[\]~]"))
+                errors.Add("Password must contain at least one special character.");
+
+
+            if (errors.Any())
+            {
+                string json = JsonSerializer.Serialize(errors);
+                throw new ArgumentException(json);
+            }
+
             Password = password;
         }
 

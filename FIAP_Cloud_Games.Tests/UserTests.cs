@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FIAP_Cloud_Games.Tests;
+using System.Text.Json;
 
 
 namespace FIAP_Cloud_Games.Tests.Domain.Entities
@@ -16,7 +17,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             string name = "Fillipy",
             string role = "Admin",
             string email = "lip-crs@hotmail.com",
-            string password = "koehmaon",
+            string password = "koehmaon@!@#$712398_",
             DateTime? createdDate = null,
             List<Game>? library = null
         )
@@ -68,7 +69,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             Assert.Equal("Fillipy", user.Name);
             Assert.Equal("Admin", user.Role);
             Assert.Equal("lip-crs@hotmail.com", user.Email);
-            Assert.Equal("koehmaon", user.Password);
+            Assert.Equal("koehmaon@!@#$712398_", user.Password);
             Assert.InRange(user.CreatedDate, before, after);
         }
 
@@ -218,32 +219,28 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act
-            user.ChangePassword("novaSenha123");
+            user.ChangePassword("novaSenha@!#$123");
 
             // Assert
-            Assert.Equal("novaSenha123", user.Password);
+            Assert.Equal("novaSenha@!#$123", user.Password);
         }
 
         [Fact]
-        public void ChangePassword_EmptyPassword_ShouldThrowArgumentException()
+        public void ChangePassword_InvalidPassword_ShouldThrowArgumentException()
         {
             // Arrange
             var user = CreateValidUser();
 
-            // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.ChangePassword(""));
-            Assert.Equal("Invalid password.", ex.Message);
-        }
+            // Act
+            var ex = Assert.Throws<ArgumentException>(() => user.ChangePassword(" "));
+            var errorsList = JsonSerializer.Deserialize<List<string>>(ex.Message);
 
-        [Fact]
-        public void ChangePassword_NullPassword_ShouldThrowArgumentException()
-        {
-            // Arrange
-            var user = CreateValidUser();
-
-            // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.ChangePassword(null!));
-            Assert.Equal("Invalid password.", ex.Message);
+            // Assert
+            Assert.Contains("Password cannot be empty.", ex.Message);
+            Assert.Contains("Password must be at least 8 characters long.", ex.Message);
+            Assert.Contains("Password must contain at least one number.", ex.Message);
+            Assert.Contains("Password must contain at least one special character.", ex.Message);
+            Assert.Contains("Password must contain at least one special character.", ex.Message);
         }
 
         // -------------------------------------------------
