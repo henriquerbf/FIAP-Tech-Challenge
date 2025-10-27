@@ -39,7 +39,7 @@ Opcionalmente:
 
 ---
 
-## 🐳 Instruções para o Docker Copose
+## 🐳 Instruções para o Docker Compose
 Versão SQL utilizada:
 - docker pull mcr.microsoft.com/mssql/server:2022-latest
 
