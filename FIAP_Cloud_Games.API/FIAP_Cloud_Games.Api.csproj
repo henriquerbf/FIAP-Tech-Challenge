@@ -10,6 +10,8 @@
   <ItemGroup>
     <Compile Remove="Controllers\GamesControler.cs" />
     <Compile Remove="Controllers\UserController.cs" />
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+    <Compile Remove="WeatherForecast.cs" />
   </ItemGroup>
 
   <ItemGroup>
