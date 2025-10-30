@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\GamesControler.cs" />
+    <Compile Remove="Controllers\UserController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove=".env" />
     <None Remove="docker-compose.yml" />
     <None Remove="Explanation.txt" />
