@@ -26,6 +26,8 @@ using (var scope = app.Services.CreateScope())
     await DatabaseSeeder.SeedAsync(db);      // chama seu seeder existente
 }
 
+app.MapControllers();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
