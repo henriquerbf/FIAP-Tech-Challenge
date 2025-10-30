@@ -22,19 +22,23 @@ namespace FIAP_Cloud_Games.Infrastructure.Seed
 
             if (!await db.Users.AnyAsync(ct))
             {
-                var u = new User(name: "Fillipy", role: "Admin", email: "lip-crs@hotmail.com", password: "Str0ng@Pwd");
-                db.Users.Add(u);
+                var u1 = new User(name: "Fillipy", role: "Admin", email: "lip-crs@hotmail.com", password: "Str0ng@Pwd");
+                var u2 = new User(name: "Henrique", role: "Admin", email: "whatever@hotmail.com", password: "pass@123");
+                db.Users.AddRange(u1, u2);
 
                 // relaciona com 2 jogos usando a tabela de junção
                 // (temos que salvar antes para garantir Ids, já que eles são gerados no constructor)
                 await db.SaveChangesAsync(ct);
 
-                var hollow = await db.Games.FirstAsync(g => g.Title == "Hollow Knight", ct);
+                var hollowKnight = await db.Games.FirstAsync(g => g.Title == "Hollow Knight", ct);
                 var celeste = await db.Games.FirstAsync(g => g.Title == "Celeste", ct);
+                var stardewValley = await db.Games.FirstAsync(g => g.Title == "Stardew Valley", ct);
 
                 db.UserGames.AddRange(
-                    new UserGame { UserId = u.Id, GameId = hollow.Id, AddedAt = DateTime.UtcNow },
-                    new UserGame { UserId = u.Id, GameId = celeste.Id, AddedAt = DateTime.UtcNow }
+                    new UserGame { UserId = u1.Id, GameId = hollowKnight.Id, AddedAt = DateTime.UtcNow },
+                    new UserGame { UserId = u1.Id, GameId = celeste.Id, AddedAt = DateTime.UtcNow },
+                    new UserGame { UserId = u2.Id, GameId = hollowKnight.Id, AddedAt = DateTime.UtcNow },
+                    new UserGame { UserId = u2.Id, GameId = stardewValley.Id, AddedAt = DateTime.UtcNow }
                 );
             }
 
