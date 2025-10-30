@@ -21,12 +21,12 @@ namespace FIAP_Cloud_Games.Domain.Entities
         private User() { }
 
         // Constructor used when creating new instances
-        public User(string name, string role, string email, string password)
+        public User(string name, string email, string password)
         {
             UpdateName(name);
             UpdateEmail(email);
             ChangePassword(password);
-            AssignRole(role);
+            AssignRole("User");
 
             Id = Guid.NewGuid();
             Library = new List<Game>();
@@ -84,7 +84,8 @@ namespace FIAP_Cloud_Games.Domain.Entities
 
         public void AssignRole(string role)
         {
-            if (role != "User" && role != "Admin")
+            role = role.ToUpper();
+            if (role != "USER" && role != "ADMIN")
                 throw new ArgumentException("Invalid role.");
             Role = role;
         }
