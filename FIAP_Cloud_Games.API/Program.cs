@@ -1,5 +1,5 @@
-using FIAP_Cloud_Games.Infrastructure.Data;
-using FIAP_Cloud_Games.Infrastructure.Data.Seed;
+using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
+using FIAP_Cloud_Games.Infrastructure.Seed;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

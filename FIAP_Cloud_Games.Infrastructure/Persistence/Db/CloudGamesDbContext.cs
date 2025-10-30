@@ -1,7 +1,7 @@
 ﻿using FIAP_Cloud_Games.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace FIAP_Cloud_Games.Infrastructure.Data
+namespace FIAP_Cloud_Games.Infrastructure.Persistence.Data
 {
     public class CloudGamesDbContext : DbContext
     {

@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Seed\" />
-    <Folder Include="Persistence\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
 

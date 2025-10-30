@@ -1,7 +1,8 @@
 ﻿using FIAP_Cloud_Games.Domain.Entities;
+using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace FIAP_Cloud_Games.Infrastructure.Data.Seed
+namespace FIAP_Cloud_Games.Infrastructure.Seed
 {
     public static class DatabaseSeeder
     {
