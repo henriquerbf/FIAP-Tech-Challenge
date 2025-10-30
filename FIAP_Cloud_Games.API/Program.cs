@@ -10,6 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 string teste = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<CloudGamesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(); 
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -17,30 +22,27 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<CloudGamesDbContext>();
-    await DatabaseSeeder.SeedAsync(db);
+    await db.Database.MigrateAsync();        // garante as migrations
+    await DatabaseSeeder.SeedAsync(db);      // chama seu seeder existente
 }
-
-app.MapHealthChecks("/health");
-
-app.MapGet("/ping-db", async (CloudGamesDbContext db) =>
-{
-    // apenas um teste rápido
-    var totalUsers = await db.Users.CountAsync();
-    var totalGames = await db.Games.CountAsync();
-    var totalLinks = await db.UserGames.CountAsync();
-    return Results.Ok(new { totalUsers, totalGames, totalLinks });
-});
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Mapeia o endpoint de health check
+    app.MapHealthChecks("/health");
+
+    app.MapGet("/db/ping", async (CloudGamesDbContext db) =>
+    {
+        // apenas um teste rápido
+        var totalUsers = await db.Users.CountAsync();
+        var totalGames = await db.Games.CountAsync();
+        var totalLinks = await db.UserGames.CountAsync();
+        return Results.Ok(new { totalUsers, totalGames, totalLinks });
+    });
 }
 
 app.UseHttpsRedirection();
