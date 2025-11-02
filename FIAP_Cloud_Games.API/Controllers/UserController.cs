@@ -7,10 +7,10 @@ namespace FIAP_Cloud_Games.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly CloudGamesDbContext _context;
-        public UsersController(CloudGamesDbContext context) => _context = context;
+        public UserController(CloudGamesDbContext context) => _context = context;
 
         // GET: api/<UsersController>
         [HttpGet]
