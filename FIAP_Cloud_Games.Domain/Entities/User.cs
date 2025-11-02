@@ -54,6 +54,8 @@ namespace FIAP_Cloud_Games.Domain.Entities
         // Business Methods
         public void ChangePassword(string password)
         {
+            // normalize null to empty to avoid NRE on password.Length
+            password = password ?? string.Empty;
             var errors = new List<string>();
             
             //Is Not Null Or White Spaces
@@ -72,7 +74,6 @@ namespace FIAP_Cloud_Games.Domain.Entities
             if (!Regex.IsMatch(password, @"[!@#$%^&*(),.?""':{}|<>_\-+=\\/\[\]~]"))
                 errors.Add("Password must contain at least one special character.");
 
-
             if (errors.Any())
             {
                 string json = JsonSerializer.Serialize(errors);
@@ -84,6 +85,9 @@ namespace FIAP_Cloud_Games.Domain.Entities
 
         public void AssignRole(string role)
         {
+            if (string.IsNullOrWhiteSpace(role))
+                throw new ArgumentException("Invalid role.");
+
             role = role.ToUpper();
             if (role != "USER" && role != "ADMIN")
                 throw new ArgumentException("Invalid role.");
@@ -92,19 +96,13 @@ namespace FIAP_Cloud_Games.Domain.Entities
 
         public void AcquireGame(Game game)
         {
-            try
-            {
-                if (game == null) throw 
-                        new ArgumentException("Objeto nulo para classe game.");
+            if (game == null)
+                throw new ArgumentException("Objeto nulo para classe game.");
 
-                if (!Library.Any(g => g.Id == game.Id))
-                    Library.Add(game);
-            }
-            catch (Exception e)
-            {
-                var message = e.Message;
-                throw;
-            }
+            Library ??= new List<Game>();
+
+            if (!Library.Any(g => g.Id == game.Id))
+                Library.Add(game);
         }
     }
 }
