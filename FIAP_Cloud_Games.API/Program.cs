@@ -7,13 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Connection string
-string teste = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<CloudGamesDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(); 
+builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();
@@ -25,8 +25,6 @@ using (var scope = app.Services.CreateScope())
     await db.Database.MigrateAsync();        // garante as migrations
     await DatabaseSeeder.SeedAsync(db);      // chama seu seeder existente
 }
-
-app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
