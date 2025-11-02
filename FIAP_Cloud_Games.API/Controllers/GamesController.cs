@@ -3,8 +3,6 @@ using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace FIAP_Cloud_Games.Controllers
 {
     [Route("api/[controller]")]
@@ -18,7 +16,6 @@ namespace FIAP_Cloud_Games.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Game>>> Get()
         {
-            // usa o _context normalmente
             return await _context.Games.AsNoTracking().ToListAsync();
         }
 
@@ -31,55 +28,45 @@ namespace FIAP_Cloud_Games.Controllers
 
         // POST api/<GamesController>
         [HttpPost]
-        public async Task<ActionResult<Game>> AddGame(Game Game)
+        public async Task<ActionResult<Game>> AddGame(Game game)
         {
-            _context.Games.Add(Game);
+            _context.Games.Add(game);
             await _context.SaveChangesAsync(); // executa o INSERT
 
-            return CreatedAtAction(nameof(Get), new { id = Game.Id }, Game);
+            return CreatedAtAction(nameof(Get), new { id = game.Id }, game);
         }
 
-        // PUT api/<GamesController>/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateGame(Guid id, Game Game)
+        [HttpPut]
+        public async Task<ActionResult<Game>> UpdateGame(Game game)
         {
-            if (id != Game.Id)
-                return BadRequest("O ID da URL não corresponde ao do corpo da requisição.");
+            var existing = await _context.Games.FindAsync(game.Id);
+            if (existing == null)
+                return null;
 
-            _context.Entry(Game).State = EntityState.Modified;
+            // Use domain guard methods to update state
+            existing.UpdateTitle(game.Title);
+            existing.UpdateDescription(game.Description);
+            existing.UpdateGenre(game.Genre);
+            existing.SetReleaseDate(game.ReleaseDate);
+            existing.UpdatePrice(game.Price);
+            existing.SetDiscount(game.Discount);
 
-            try
-            {
-                await _context.SaveChangesAsync(); // executa o UPDATE
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GameExists(id))
-                    return NotFound(); // se o usuário não existe mais
-                else
-                    throw; // re-lança se for outro tipo de erro
-            }
-
-            return NoContent(); // 204
+            await _context.SaveChangesAsync();
+            return existing;
         }
 
-        // DELETE api/<GamesController>/5
+        // DELETE api/<GamesController>/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(int id)
+        public async Task<IActionResult> DeleteGame(Guid id)
         {
-            var Game = await _context.Games.FindAsync(id);
-            if (Game == null)
+            var game = await _context.Games.FindAsync(id);
+            if (game == null)
                 return NotFound();
 
-            _context.Games.Remove(Game);
+            _context.Games.Remove(game);
             await _context.SaveChangesAsync(); // executa o DELETE
 
             return NoContent();
-        }
-
-        private bool GameExists(Guid id)
-        {
-            return _context.Games.Any(e => e.Id == id);
         }
     }
 }
