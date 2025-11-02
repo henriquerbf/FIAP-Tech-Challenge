@@ -1,51 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <!-- Root element: uses the ASP.NET Core web SDK -->
+
   <PropertyGroup>
-    <!-- Target .NET version used by the project -->
-    <TargetFramework>net8.0</TargetFramework> <!-- Targets .NET 8 -->
-    <!-- Enable nullable reference types -->
-    <Nullable>enable</Nullable> <!-- Enables C# nullable reference type checking -->
-    <!-- Enable implicit global usings introduced in .NET 6+ -->
-    <ImplicitUsings>enable</ImplicitUsings> <!-- Automatically imports common namespaces -->
-    <!-- C# language version -->
-    <LangVersion>latest</LangVersion> <!-- Uses the latest available C# language features -->
-    <!-- Generate XML documentation file for the assembly -->
-    <GenerateDocumentationFile>true</GenerateDocumentationFile> <!-- Produces XML docs for IntelliSense and publishing -->
-    <!-- Produce deterministic builds for reproducibility -->
-    <Deterministic>true</Deterministic> <!-- Ensures build outputs are deterministic -->
-    <!-- Assembly and package metadata -->
-    <AssemblyName>FIAP_Cloud_Games.Api</AssemblyName> <!-- Assembly name for the output -->
-    <Authors>FIAP</Authors> <!-- Author metadata -->
-    <RootNamespace>FIAP_Cloud_Games</RootNamespace> <!-- Default namespace for the project -->
-    <!-- User secrets id for local development secret management -->
-    <UserSecretsId>73eb2016-20a6-4373-b1d9-883b7d4a187a</UserSecretsId> <!-- ID used by dotnet user-secrets -->
-    <!-- Repository URL helps CI and package consumers locate source -->
-    <RepositoryUrl>https://github.com/henriquerbf/FIAP-Tech-Challenge</RepositoryUrl> <!-- Replace with actual repo URL if available -->
-    <!-- Treat compiler warnings as errors can be enabled in CI but kept off locally by default -->
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors> <!-- Set true to fail builds on warnings -->
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>FIAP_Cloud_Games</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- Design-time EF Core tools -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
-      <PrivateAssets>all</PrivateAssets> <!-- Prevents this package reference from being exposed to consumers -->
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-
-    <!-- EF Core SQL Server provider -->
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" />
-
-    <!-- Swagger / OpenAPI support -->
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
-
-    <!-- Enable Microsoft .NET analyzers for improved code quality -->
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.8.5" PrivateAssets="all" /> <!-- PrivateAssets ensures the analyzer package does not flow to project consumers -->
+    <Compile Remove="Controllers\GamesControler.cs" />
+    <Compile Remove="Controllers\WeatherForecastController.cs" />
+    <Compile Remove="WeatherForecast.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Project references to other solution projects -->
+    <None Remove=".env" />
+    <None Remove="docker-compose.yml" />
+    <None Remove="Explanation.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FIAP_Cloud_Games.Application\FIAP_Cloud_Games.Application.csproj" />
     <ProjectReference Include="..\FIAP_Cloud_Games.Domain\FIAP_Cloud_Games.Domain.csproj" />
     <ProjectReference Include="..\FIAP_Cloud_Games.Infrastructure\FIAP_Cloud_Games.Infrastructure.csproj" />
   </ItemGroup>
+
 </Project>
