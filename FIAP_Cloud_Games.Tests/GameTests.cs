@@ -1,8 +1,7 @@
 using FIAP_Cloud_Games.Domain.Entities;
 
-namespace FIAP_Cloud_Games.Tests
-{
-
+namespace FIAP_Cloud_Games.Tests.Domain.Entities 
+{ 
     public class GameTests
     {
         private static Game CreateValidGame(
