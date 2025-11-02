@@ -1,8 +1,15 @@
 using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using FIAP_Cloud_Games.Infrastructure.Seed;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// [ADICIONADO] Serilog l� do appsettings (Serilog section) e habilita como logger da aplica��o
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateLogger();
+builder.Host.UseSerilog();
 
 // Add services to the container.
 
@@ -44,6 +51,14 @@ if (app.Environment.IsDevelopment())
         return Results.Ok(new { totalUsers, totalGames, totalLinks });
     });
 }
+
+// [ADICIONADO] Logs estruturados de request/response via Serilog
+app.UseSerilogRequestLogging();
+
+// [ADICIONADO] Middleware centralizado de erros (devolve ProblemDetails JSON)
+app.UseMiddleware<ErrorHandlingMiddleware>();
+
+// app.UseMiddleware<RequestLoggingMiddleware>(); // [OPCIONAL] se quiser log custom de tempo/claims
 
 app.UseHttpsRedirection();
 
