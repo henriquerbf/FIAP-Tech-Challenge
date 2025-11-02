@@ -3,8 +3,6 @@ using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace FIAP_Cloud_Games.Controllers
 {
     [Route("api/[controller]")]
@@ -63,9 +61,9 @@ namespace FIAP_Cloud_Games.Controllers
             return NoContent(); // 204
         }
 
-        // DELETE api/<UsersController>/5
+        // DELETE api/<UsersController>/{id}
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
