@@ -49,8 +49,8 @@ Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáve
     TZ=America/Sao_Paulo
      
 Como subir o container:
-- Navegue até a pasta onde está o "docker-compose.yml"
-- Execute o comando: docker compose up -d
+- Abra o terminal na pasta onde está o "docker-compose.yml"
+- Execute o comando: docker compose -p "fiap_cloud_games" up -d
 - Verifique se está rodando: docker ps
 
 ---
