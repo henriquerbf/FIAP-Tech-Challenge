@@ -15,7 +15,6 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
     {
         private static User CreateValidUser(
             string name = "Fillipy",
-            string role = "Admin",
             string email = "lip-crs@hotmail.com",
             string password = "koehmaon@!@#$712398_",
             DateTime? createdDate = null,
@@ -31,7 +30,6 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
 
             return new User(
                 name,
-                role,
                 email,
                 password
             );
@@ -67,7 +65,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Assert
             Assert.NotEqual(Guid.Empty, user.Id);
             Assert.Equal("Fillipy", user.Name);
-            Assert.Equal("Admin", user.Role);
+            Assert.Equal("USER", user.Role);
             Assert.Equal("lip-crs@hotmail.com", user.Email);
             Assert.Equal("koehmaon@!@#$712398_", user.Password);
             Assert.InRange(user.CreatedDate, before, after);
@@ -110,7 +108,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
                     user.ChangePassword("");
                 });
 
-                Assert.Equal("Invalid password.", ex.Message);
+                Assert.Contains("Password cannot be empty.", ex.Message);
             }
         }
 
@@ -255,7 +253,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
             user.AssignRole("User");
             // Assert
-            Assert.Equal("User", user.Role);
+            Assert.Equal("USER", user.Role);
         }
 
         [Fact]
@@ -266,7 +264,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
             user.AssignRole("Admin");
             // Assert
-            Assert.Equal("Admin", user.Role);
+            Assert.Equal("ADMIN", user.Role);
         }
 
         [Fact]
