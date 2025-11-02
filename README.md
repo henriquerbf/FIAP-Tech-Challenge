@@ -48,8 +48,9 @@ Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáve
     MSSQL_SA_PASSWORD=YourStrong!Passw0rd
     TZ=America/Sao_Paulo
      
-Como usar:
-- Suba o container: docker compose -f "path\do\docker-compose.yml" up -d
+Como subir o container:
+- Navegue até a pasta onde está o "docker-compose.yml"
+- Execute o comando: docker compose up -d
 - Verifique se está rodando: docker ps
 
 ---
