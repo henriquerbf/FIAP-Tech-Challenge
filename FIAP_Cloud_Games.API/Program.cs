@@ -31,8 +31,12 @@ app.MapControllers();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseStaticFiles();
+    app.UseSwaggerUI(c =>
+    {
+        c.InjectStylesheet("/swagger/swagger-dark.css");
+    });
     app.UseSwagger();
-    app.UseSwaggerUI();
 
     // Mapeia o endpoint de health check
     app.MapHealthChecks("/health");
