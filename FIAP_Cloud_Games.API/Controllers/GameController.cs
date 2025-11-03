@@ -2,11 +2,13 @@
 using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FIAP_Cloud_Games.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize] // <-- protege todas as ações do controlador
     public class GameController : ControllerBase
     {
         private readonly CloudGamesDbContext _context;

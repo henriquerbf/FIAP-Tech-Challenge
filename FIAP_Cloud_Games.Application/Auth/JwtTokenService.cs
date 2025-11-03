@@ -12,7 +12,7 @@ public class JwtTokenService : IJwtTokenService
     private readonly IConfiguration _config;
     public JwtTokenService(IConfiguration config) => _config = config;
 
-    public string GenerateToken(Guid userId, string email, UserRole role)
+    public string GenerateToken(Guid userId, string email)
     {
         var issuer = _config["Jwt:Issuer"];
         var audience = _config["Jwt:Audience"];
@@ -23,7 +23,6 @@ public class JwtTokenService : IJwtTokenService
         {
             new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, email),
-            new Claim(ClaimTypes.Role, role.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
 

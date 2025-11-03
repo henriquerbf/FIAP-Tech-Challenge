@@ -1,37 +1,56 @@
 ﻿using FIAP_Cloud_Games.Application.Auth;
 using FIAP_Cloud_Games.Domain.Enums;
-using FIAP_Cloud_Games.Infrastructure.Persistence;
 using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using FIAP_Cloud_Games.Domain.Enums;
 
-namespace FIAP_Cloud_Games.API.Controllers;
-
-[ApiController]
-[Route("api/auth")]
-
-public class AuthController : ControllerBase
+namespace FIAP_Cloud_Games.API.Controllers
 {
-    private readonly CloudGamesDbContext _db;
-    private readonly IJwtTokenService _jwt;
 
-    public AuthController(CloudGamesDbContext db, IJwtTokenService jwt)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
-        _db = db; _jwt = jwt;
+        private readonly IConfiguration _configuration;
+        private readonly CloudGamesDbContext _context;
+        private readonly IJwtTokenService _jwtTokenService;
+        public AuthController(IConfiguration configuration, CloudGamesDbContext context, IJwtTokenService jwtTokenService)
+        {
+            _configuration = configuration;
+            _context = context;
+            _jwtTokenService = jwtTokenService;
+        }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+
+            if (user == null)
+                return Unauthorized(new { message = "E-mail não encontrado." });
+
+            // Idealmente usar hash, mas mantendo seu exemplo
+            if (request.Password != user.Password)
+                return Unauthorized(new { message = "Senha incorreta." });
+
+            var token = _jwtTokenService.GenerateToken(user.Id, user.Email);
+
+            return Ok(new
+            {
+                token,
+                role = user.Role
+            });
+        }
+
     }
 
     public record LoginRequest(string Email, string Password);
-
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest req, CancellationToken ct)
-    {
-        var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == req.Email, ct);
-        if (user == null) return Unauthorized(new { error = "Credenciais inválidas" });
-
-        // TODO: verificar hash de senha corretamente (BCrypt/Argon2/PBKDF2)
-        if (user.Password != req.Password) return Unauthorized(new { error = "Credenciais inválidas" });
-
-        var token = _jwt.GenerateToken(user.Id, user.Email, user.Role);
-        return Ok(new { token, role = user.Role.ToString(), userId = user.Id });
-    }
 }
