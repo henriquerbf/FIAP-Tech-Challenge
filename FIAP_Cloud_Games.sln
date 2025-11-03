@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Api", "FIAP_Cloud_Games.Api\FIAP_Cloud_Games.Api.csproj", "{1BCFBF04-F821-4F47-8B10-FBBC8E8868B3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Domain", "FIAP_Cloud_Games.Domain\FIAP_Cloud_Games.Domain.csproj", "{A57CD0AA-44D8-4ACE-868B-5DAFD8239198}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Application", "FIAP_Cloud_Games.Application\FIAP_Cloud_Games.Application.csproj", "{3C93B534-6B8C-47BB-810B-D6E75120F654}"
@@ -20,16 +18,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Api", "FIAP_Cloud_Games.API\FIAP_Cloud_Games.Api.csproj", "{12437E73-13E6-7BE0-F411-A480574D9578}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1BCFBF04-F821-4F47-8B10-FBBC8E8868B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BCFBF04-F821-4F47-8B10-FBBC8E8868B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BCFBF04-F821-4F47-8B10-FBBC8E8868B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BCFBF04-F821-4F47-8B10-FBBC8E8868B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A57CD0AA-44D8-4ACE-868B-5DAFD8239198}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A57CD0AA-44D8-4ACE-868B-5DAFD8239198}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A57CD0AA-44D8-4ACE-868B-5DAFD8239198}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,6 +42,10 @@ Global
 		{08CEBE92-2864-46C6-B07A-1940871360C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{08CEBE92-2864-46C6-B07A-1940871360C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{08CEBE92-2864-46C6-B07A-1940871360C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12437E73-13E6-7BE0-F411-A480574D9578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12437E73-13E6-7BE0-F411-A480574D9578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12437E73-13E6-7BE0-F411-A480574D9578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12437E73-13E6-7BE0-F411-A480574D9578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
