@@ -41,12 +41,12 @@ namespace FIAP_Cloud_Games.API.Controllers
             if (request.Password != user.Password)
                 return Unauthorized(new { message = "Senha incorreta." });
 
-            var token = _jwtTokenService.GenerateToken(user.Id, user.Email);
+            var token = _jwtTokenService.GenerateToken(user.Id, user.Email, user.Role);
 
             return Ok(new
             {
                 token,
-                role = user.Role
+                role = user.Role.ToString()
             });
         }
 

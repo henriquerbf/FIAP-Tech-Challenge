@@ -8,7 +8,7 @@ namespace FIAP_Cloud_Games.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize] // <-- protege todas as ações do controlador
+    [Authorize]
     public class GameController : ControllerBase
     {
         private readonly CloudGamesDbContext _context;
@@ -16,6 +16,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // GET: api/<GamesController>
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<Game>>> Get()
         {
             return await _context.Games.AsNoTracking().ToListAsync();
@@ -23,6 +24,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // GET api/<GamesController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<Game>> Get(Guid id)
         {
             return await _context.Games.FindAsync(id);
@@ -30,6 +32,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // POST api/<GamesController>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Game>> AddGame(Game game)
         {
             _context.Games.Add(game);
@@ -39,6 +42,7 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Game>> UpdateGame(Game game)
         {
             var existing = await _context.Games.FindAsync(game.Id);
@@ -59,6 +63,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // DELETE api/<GamesController>/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteGame(Guid id)
         {
             var game = await _context.Games.FindAsync(id);

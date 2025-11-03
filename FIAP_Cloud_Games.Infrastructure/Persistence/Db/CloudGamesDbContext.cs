@@ -1,4 +1,5 @@
 ﻿using FIAP_Cloud_Games.Domain.Entities;
+using FIAP_Cloud_Games.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace FIAP_Cloud_Games.Infrastructure.Persistence.Data
@@ -19,7 +20,9 @@ namespace FIAP_Cloud_Games.Infrastructure.Persistence.Data
                 e.ToTable("Users");
                 e.HasKey(x => x.Id);
                 e.Property(x => x.Name).IsRequired().HasMaxLength(200);
-                e.Property(x => x.Role).IsRequired().HasMaxLength(50);
+                e.Property(x => x.Role).HasConversion(
+                    x => x.ToString(),
+                    x => Enum.Parse<UserRole>(x));
                 e.Property(x => x.Email).IsRequired().HasMaxLength(320);
                 e.Property(x => x.Password).IsRequired().HasMaxLength(200);
                 e.Property(x => x.CreatedDate).HasColumnType("datetime2");
