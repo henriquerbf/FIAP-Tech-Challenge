@@ -11,14 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Infrastruc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Tests", "FIAP_Cloud_Games.Tests\FIAP_Cloud_Games.Tests.csproj", "{08CEBE92-2864-46C6-B07A-1940871360C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Api", "FIAP_Cloud_Games.API\FIAP_Cloud_Games.Api.csproj", "{12437E73-13E6-7BE0-F411-A480574D9578}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{B3808C51-12A5-4D2D-81A3-5FF6F7FF53D3}"
 	ProjectSection(SolutionItems) = preProject
 		.env = .env
 		docker-compose.yml = docker-compose.yml
 		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games.Api", "FIAP_Cloud_Games.API\FIAP_Cloud_Games.Api.csproj", "{12437E73-13E6-7BE0-F411-A480574D9578}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
