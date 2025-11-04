@@ -76,7 +76,7 @@ namespace FIAP_Cloud_Games.Controllers
             return NoContent();
         }
 
-        // DELETE api/<GamesController>/{id}
+        // CreatePromotion api/<GamesController>/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreatePromotion(Guid id, decimal discount)
