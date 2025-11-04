@@ -38,7 +38,7 @@ A plataforma **FIAP Cloud Games (FCG)** será expandida nas próximas fases, mas
 Versão SQL utilizada:
 - docker pull mcr.microsoft.com/mssql/server:2022-latest
 
-Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáveis, defina os valores como preferir:
+Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáveis, defina os valores como preferir:  
      ACCEPT_EULA=Y  
      MSSQL_SA_PASSWORD=YourStrong!Passw0rd  
      TZ=America/Sao_Paulo  
