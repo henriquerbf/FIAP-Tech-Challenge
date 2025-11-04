@@ -46,7 +46,7 @@ Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáve
      
 Como subir o container:
 - Abra o terminal na pasta onde está o "docker-compose.yml"
-- Execute o comando: docker compose -p up -d
+- Execute o comando: docker compose up -d
 - Verifique se está rodando: docker ps
 
 ## 🔑 Instruções para o JWT Authentication
