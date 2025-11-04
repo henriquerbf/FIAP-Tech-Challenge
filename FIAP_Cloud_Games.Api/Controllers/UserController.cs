@@ -14,34 +14,34 @@ namespace FIAP_Cloud_Games.Controllers
         public UserController(CloudGamesDbContext context) => _context = context;
 
         // GET: api/<UsersController>
-        [HttpGet]
+        [HttpGet("GetUser")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<IEnumerable<User>>> Get()
+        public async Task<ActionResult<IEnumerable<User>>> GetUser()
         {
             // usa o _context normalmente
             return await _context.Users.AsNoTracking().ToListAsync();
         }
 
         // GET api/<UsersController>/5
-        [HttpGet("{id}")]
+        [HttpGet("GeUserById")]
         [Authorize]
-        public async Task<ActionResult<User>> Get(Guid id)
+        public async Task<ActionResult<User>> GeUserById(Guid id)
         {
             return await _context.Users.FindAsync(id);
         }
 
         // POST api/<UsersController>
-        [HttpPost]
-        public async Task<ActionResult<User>> AddUser(User user)
+        [HttpPost("CreateUser")]
+        public async Task<ActionResult<User>> CreateUser(User user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync(); // executa o INSERT
 
-            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
 
         // PUT api/<UsersController>/5
-        [HttpPut("{id}")]
+        [HttpPut("UpdateUser")]
         [Authorize]
         public async Task<IActionResult> UpdateUser(Guid id, User user)
         {
@@ -66,7 +66,7 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
         // DELETE api/<UsersController>/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteUser")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {

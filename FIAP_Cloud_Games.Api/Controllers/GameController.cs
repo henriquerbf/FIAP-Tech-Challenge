@@ -15,33 +15,33 @@ namespace FIAP_Cloud_Games.Controllers
         public GameController(CloudGamesDbContext context) => _context = context;
 
         // GET: api/<GamesController>
-        [HttpGet]
+        [HttpGet("GetGame")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Game>>> Get()
+        public async Task<ActionResult<IEnumerable<Game>>> GetGame()
         {
             return await _context.Games.AsNoTracking().ToListAsync();
         }
 
         // GET api/<GamesController>/5
-        [HttpGet("{id}")]
+        [HttpGet("GetGameById")]
         [Authorize]
-        public async Task<ActionResult<Game>> Get(Guid id)
+        public async Task<ActionResult<Game>> GetGameById(Guid id)
         {
             return await _context.Games.FindAsync(id);
         }
 
         // POST api/<GamesController>
-        [HttpPost]
+        [HttpPost("CreateGame")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<Game>> AddGame(Game game)
+        public async Task<ActionResult<Game>> CreateGame(Game game)
         {
             _context.Games.Add(game);
             await _context.SaveChangesAsync(); // executa o INSERT
 
-            return CreatedAtAction(nameof(Get), new { id = game.Id }, game);
+            return CreatedAtAction(nameof(GetGame), new { id = game.Id }, game);
         }
 
-        [HttpPut]
+        [HttpPut("UpdateGame")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Game>> UpdateGame(Game game)
         {
@@ -62,7 +62,7 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
         // DELETE api/<GamesController>/{id}
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteGame")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteGame(Guid id)
         {
@@ -77,7 +77,7 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
         // CreatePromotion api/<GamesController>/{id}
-        [HttpPut("{id}")]
+        [HttpPut("CreatePromotion")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreatePromotion(Guid id, decimal discount)
         {
@@ -90,9 +90,7 @@ namespace FIAP_Cloud_Games.Controllers
 
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Get), new { id = game.Id }, game);
-
-            return NoContent();
+            return CreatedAtAction(nameof(GetGame), new { id = game.Id }, game);
         }
     }
 }
