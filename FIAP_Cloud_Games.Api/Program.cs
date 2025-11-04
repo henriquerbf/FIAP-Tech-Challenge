@@ -103,15 +103,6 @@ if (app.Environment.IsDevelopment())
 
     // Mapeia o endpoint de health check
     app.MapHealthChecks("/health");
-
-    app.MapGet("/db/ping", async (CloudGamesDbContext db) =>
-    {
-        // apenas um teste rápido
-        var totalUsers = await db.Users.CountAsync();
-        var totalGames = await db.Games.CountAsync();
-        var totalLinks = await db.UserGames.CountAsync();
-        return Results.Ok(new { totalUsers, totalGames, totalLinks });
-    });
 }
 
 app.UseHttpsRedirection();
