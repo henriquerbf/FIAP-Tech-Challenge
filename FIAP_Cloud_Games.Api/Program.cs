@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // registrar o middleware para injeção (IMiddleware)
 builder.Services.AddTransient<ErrorHandlingMiddleware>();
+
 // --- Authentication e JWT ---
 var key = builder.Configuration["Jwt:Key"];
 var issuer = builder.Configuration["Jwt:Issuer"];
