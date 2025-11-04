@@ -1,8 +1,6 @@
-﻿using System.Net;
+﻿using FIAP_Cloud_Games.Domain.Exceptions;
+using System.Net;
 using System.Text.Json;
-using FIAP_Cloud_Games.Domain.Exceptions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 
 namespace FIAP_Cloud_Games.API.Middlewares;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FIAP_Cloud_Games.Domain.Exceptions
 {
-    internal class DomainException
+    public class DomainException : Exception
     {
     }
 }
