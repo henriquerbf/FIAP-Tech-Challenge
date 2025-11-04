@@ -1,5 +1,6 @@
 ﻿using FIAP_Cloud_Games.Domain.Entities;
 using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +8,7 @@ namespace FIAP_Cloud_Games.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly CloudGamesDbContext _context;
@@ -14,6 +16,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // GET: api/<UsersController>
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<IEnumerable<User>>> Get()
         {
             // usa o _context normalmente
@@ -22,6 +25,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<User>> Get(Guid id)
         {
             return await _context.Users.FindAsync(id);
@@ -29,6 +33,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<User>> AddUser(User user)
         {
             _context.Users.Add(user);
@@ -39,6 +44,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser(Guid id, User user)
         {
             if (id != user.Id)
@@ -63,6 +69,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // DELETE api/<UsersController>/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
             var user = await _context.Users.FindAsync(id);

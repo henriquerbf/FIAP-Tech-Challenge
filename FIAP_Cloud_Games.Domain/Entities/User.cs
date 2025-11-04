@@ -1,5 +1,7 @@
-﻿using System.Text.Json;
+﻿using FIAP_Cloud_Games.Domain.Enums;
+using System.Text.Json;
 using System.Text.RegularExpressions;
+using FIAP_Cloud_Games.Domain.Entities;
 
 namespace FIAP_Cloud_Games.Domain.Entities
 {
@@ -11,11 +13,12 @@ namespace FIAP_Cloud_Games.Domain.Entities
         // Properties
         public Guid Id { get; private set; }
         public string Name { get; private set; }
-        public string Role { get; private set; }
+        public UserRole Role { get; private set; }
         public string Email { get; private set; }
         public string Password { get; private set; }
         public DateTime CreatedDate { get; private set; } = DateTime.Now;
         public List<Game> Library { get; private set; }
+        
 
         // Constructors
         private User() { }
@@ -86,12 +89,12 @@ namespace FIAP_Cloud_Games.Domain.Entities
         public void AssignRole(string role)
         {
             if (string.IsNullOrWhiteSpace(role))
-                throw new ArgumentException("Invalid role.");
+                throw new ArgumentException("Role não pode ser nula ou vazia.", nameof(role));
 
-            role = role.ToUpper();
-            if (role != "USER" && role != "ADMIN")
-                throw new ArgumentException("Invalid role.");
-            Role = role;
+            if (Enum.TryParse<UserRole>(role.Trim(), true, out var parsedRole))
+                Role = parsedRole;
+            else
+                throw new ArgumentException($"Role inválida: '{role}'", nameof(role));
         }
 
         public void AcquireGame(Game game)

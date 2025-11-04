@@ -1,6 +1,8 @@
 ﻿using FIAP_Cloud_Games.Domain.Entities;
+using FIAP_Cloud_Games.Domain.Enums;
 using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace FIAP_Cloud_Games.Infrastructure.Seed
 {
@@ -45,6 +47,7 @@ namespace FIAP_Cloud_Games.Infrastructure.Seed
                 foreach (var user in users)
                     user.AssignRole("admin");
 
+                users.Add(new User(name: "Leopardo", email: "tantofaz@hotmail.com", password: "3dg4bcl5@@"));
                 db.Users.AddRange(users);
 
                 // relaciona com 2 jogos usando a tabela de junção

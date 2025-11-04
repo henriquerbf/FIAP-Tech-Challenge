@@ -53,4 +53,8 @@ Como subir o container:
 - Execute o comando: docker compose -p "fiap_cloud_games" up -d
 - Verifique se está rodando: docker ps
 
+Configure o JWT:
+- Abra o terminal na pasta do projeto API
+- Necessário definir uma Jwt Key de 256 bits (32 caracteres hexadecimais), como no exemplo abaixo
+- Execute o comando: dotnet user-secrets set "Jwt:Key" "918cc242dec03041c7e71ce44e609988d8b127497b63f66e980e1c61e52f5ef1"
 ---

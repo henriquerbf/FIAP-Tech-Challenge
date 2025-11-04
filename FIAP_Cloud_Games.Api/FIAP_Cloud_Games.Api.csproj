@@ -1,18 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>FIAP_Cloud_Games</RootNamespace>
+    <UserSecretsId>2b5a926d-674b-41cc-a3b5-62211a43ba4a</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Controllers\GamesControler.cs" />
-    <Compile Remove="Controllers\WeatherForecastController.cs" />
-    <Compile Remove="WeatherForecast.cs" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <None Remove=".env" />
     <None Remove="docker-compose.yml" />
