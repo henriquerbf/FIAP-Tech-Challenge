@@ -75,5 +75,24 @@ namespace FIAP_Cloud_Games.Controllers
 
             return NoContent();
         }
+
+        // DELETE api/<GamesController>/{id}
+        [HttpPatch("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreatePromotion(Guid id, decimal discount)
+        {
+            discount = discount / 100; // convert to decimal
+            var game = await _context.Games.FindAsync(id);
+            if (game == null)
+                return NotFound();
+
+            game.SetDiscount(discount);
+
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(Get), new { id = game.Id }, game);
+
+            return NoContent();
+        }
     }
 }
