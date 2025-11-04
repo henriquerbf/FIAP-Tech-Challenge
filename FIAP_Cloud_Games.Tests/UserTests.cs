@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FIAP_Cloud_Games.Tests;
 using System.Text.Json;
+using FIAP_Cloud_Games.Domain.Enums;
 
 
 namespace FIAP_Cloud_Games.Tests.Domain.Entities
@@ -65,7 +66,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Assert
             Assert.NotEqual(Guid.Empty, user.Id);
             Assert.Equal("Fillipy", user.Name);
-            Assert.Equal("USER", user.Role);
+            Assert.Equal(UserRole.User, user.Role);
             Assert.Equal("lip-crs@hotmail.com", user.Email);
             Assert.Equal("koehmaon@!@#$712398_", user.Password);
             Assert.InRange(user.CreatedDate, before, after);
@@ -124,7 +125,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
                     user.AssignRole("");
                 });
 
-                Assert.Equal("Invalid role.", ex.Message);
+                Assert.Contains("Role não pode ser nula ou vazia.", ex.Message);
             }
         }
 
@@ -253,7 +254,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
             user.AssignRole("User");
             // Assert
-            Assert.Equal("USER", user.Role);
+            Assert.Equal(UserRole.User, user.Role);
         }
 
         [Fact]
@@ -264,7 +265,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Act
             user.AssignRole("Admin");
             // Assert
-            Assert.Equal("ADMIN", user.Role);
+            Assert.Equal(UserRole.Admin, user.Role);
         }
 
         [Fact]
@@ -274,7 +275,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
             // Act & Assert
             var ex = Assert.Throws<ArgumentException>(() => user.AssignRole("Manager"));
-            Assert.Equal("Invalid role.", ex.Message);
+            Assert.Contains("Role inválida:", ex.Message);
         }
 
         // -------------------------------------------------
