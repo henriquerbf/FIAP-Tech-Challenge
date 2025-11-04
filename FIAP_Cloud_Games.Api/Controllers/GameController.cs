@@ -16,7 +16,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // GET: api/<GamesController>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<Game>>> Get()
         {
             return await _context.Games.AsNoTracking().ToListAsync();
@@ -24,7 +24,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // GET api/<GamesController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "User")]
+        [Authorize]
         public async Task<ActionResult<Game>> Get(Guid id)
         {
             return await _context.Games.FindAsync(id);
