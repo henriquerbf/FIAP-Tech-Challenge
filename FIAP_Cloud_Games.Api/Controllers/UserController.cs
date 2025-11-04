@@ -8,7 +8,6 @@ namespace FIAP_Cloud_Games.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly CloudGamesDbContext _context;
@@ -25,7 +24,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize]
         public async Task<ActionResult<User>> Get(Guid id)
         {
             return await _context.Users.FindAsync(id);
@@ -33,7 +32,6 @@ namespace FIAP_Cloud_Games.Controllers
 
         // POST api/<UsersController>
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<User>> AddUser(User user)
         {
             _context.Users.Add(user);
@@ -44,7 +42,7 @@ namespace FIAP_Cloud_Games.Controllers
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<IActionResult> UpdateUser(Guid id, User user)
         {
             if (id != user.Id)
