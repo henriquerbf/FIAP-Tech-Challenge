@@ -1,3 +1,4 @@
+using FIAP_Cloud_Games.API.Middlewares;
 using FIAP_Cloud_Games.Application.Auth;
 using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using FIAP_Cloud_Games.Infrastructure.Seed;
@@ -10,6 +11,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// registrar o middleware para injeção (IMiddleware)
+builder.Services.AddTransient<ErrorHandlingMiddleware>();
 // --- Authentication e JWT ---
 var key = builder.Configuration["Jwt:Key"];
 var issuer = builder.Configuration["Jwt:Issuer"];
@@ -80,6 +83,8 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddHealthChecks();
 
 var app = builder.Build();
+
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 // aplica migrations + seeding na inicialização
 using (var scope = app.Services.CreateScope())

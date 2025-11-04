@@ -1,4 +1,6 @@
-﻿namespace FIAP_Cloud_Games.Domain.Entities
+﻿using FIAP_Cloud_Games.Domain.Exceptions;
+
+namespace FIAP_Cloud_Games.Domain.Entities
 {
     /// <summary>
     /// Represents a game.
