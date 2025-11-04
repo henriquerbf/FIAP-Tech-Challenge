@@ -1,4 +1,5 @@
 using FIAP_Cloud_Games.Domain.Entities;
+using FIAP_Cloud_Games.Domain.Exceptions;
 
 namespace FIAP_Cloud_Games.Tests.Domain.Entities 
 { 
@@ -54,7 +55,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         {
             var game = CreateValidGame();
 
-            var ex = Assert.Throws<ArgumentException>(() => game.UpdateTitle(invalid));
+            var ex = Assert.Throws<DomainException>(() => game.UpdateTitle(invalid));
             Assert.Contains("Invalid title", ex.Message);
         }
 
@@ -86,7 +87,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         {
             var game = CreateValidGame();
 
-            var ex = Assert.Throws<ArgumentException>(() => game.UpdateGenre(invalid));
+            var ex = Assert.Throws<DomainException>(() => game.UpdateGenre(invalid));
             Assert.Contains("Invalid genre", ex.Message);
         }
 
@@ -105,7 +106,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         {
             var game = CreateValidGame();
 
-            var ex = Assert.Throws<ArgumentException>(() => game.UpdatePrice(-0.01m));
+            var ex = Assert.Throws<DomainException>(() => game.UpdatePrice(-0.01m));
             Assert.Contains("Price cannot be negative", ex.Message);
         }
 
@@ -129,7 +130,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         {
             var game = CreateValidGame();
 
-            var ex = Assert.Throws<ArgumentException>(() => game.SetDiscount((decimal)invalid));
+            var ex = Assert.Throws<DomainException>(() => game.SetDiscount((decimal)invalid));
             Assert.Contains("between 0 and 1", ex.Message);
         }
 
@@ -172,7 +173,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         {
             var game = CreateValidGame();
 
-            var ex = Assert.Throws<ArgumentException>(() => game.SetReleaseDate(default));
+            var ex = Assert.Throws<DomainException>(() => game.SetReleaseDate(default));
             Assert.Contains("Release date is required", ex.Message);
         }
 
@@ -191,23 +192,23 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         public void Ctor_DeveFalhar_QuandoAlgumParametroInvalido()
         {
             // title inválido
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<DomainException>(() =>
                 new Game(" ", "desc", "Action", 10m, new DateTime(2020, 1, 1)));
 
             // genre inválido
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<DomainException>(() =>
                 new Game("Title", "desc", " ", 10m, new DateTime(2020, 1, 1)));
 
             // price negativo
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<DomainException>(() =>
                 new Game("Title", "desc", "Action", -1m, new DateTime(2020, 1, 1)));
 
             // discount fora do intervalo
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<DomainException>(() =>
                 new Game("Title", "desc", "Action", 10m, new DateTime(2020, 1, 1), 1.1m));
 
             // release date default
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<DomainException>(() =>
                 new Game("Title", "desc", "Action", 10m, default, 0m));
         }
     }

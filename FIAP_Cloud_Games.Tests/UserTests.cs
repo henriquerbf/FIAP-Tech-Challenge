@@ -1,13 +1,14 @@
 ﻿using FIAP_Cloud_Games.Domain.Entities;
+using FIAP_Cloud_Games.Domain.Enums;
+using FIAP_Cloud_Games.Domain.Exceptions;
+using FIAP_Cloud_Games.Tests;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using FIAP_Cloud_Games.Tests;
 using System.Text.Json;
-using FIAP_Cloud_Games.Domain.Enums;
+using System.Threading.Tasks;
 
 
 namespace FIAP_Cloud_Games.Tests.Domain.Entities
@@ -77,7 +78,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
         public void Constructor_InvalidEmail_ShouldThrowArgumentException()
         {
             var user = CreateValidUser();   
-            var ex = Assert.Throws<ArgumentException>( () => user.UpdateEmail("yes@.com"));
+            var ex = Assert.Throws<DomainException>( () => user.UpdateEmail("yes@.com"));
             Assert.Equal("Invalid email.", ex.Message);
         }
 
@@ -88,7 +89,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
             // Act & Assert
             {
-                var ex = Assert.Throws<ArgumentException>(() =>
+                var ex = Assert.Throws<DomainException>(() =>
                 {
                     user.UpdateName("");
                 });
@@ -104,7 +105,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
             // Act & Assert
             {
-                var ex = Assert.Throws<ArgumentException>(() =>
+                var ex = Assert.Throws<DomainException>(() =>
                 {
                     user.ChangePassword("");
                 });
@@ -120,7 +121,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
             // Act & Assert
             {
-                var ex = Assert.Throws<ArgumentException>(() =>
+                var ex = Assert.Throws<DomainException>(() =>
                 {
                     user.AssignRole("");
                 });
@@ -152,7 +153,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.UpdateName(""));
+            var ex = Assert.Throws<DomainException>(() => user.UpdateName(""));
             Assert.Equal("Invalid name.", ex.Message);
 
         }
@@ -164,7 +165,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.UpdateName(null!));
+            var ex = Assert.Throws<DomainException>(() => user.UpdateName(null!));
             Assert.Equal("Invalid name.", ex.Message);
         }
 
@@ -192,7 +193,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.UpdateEmail("yes@.com"));
+            var ex = Assert.Throws<DomainException>(() => user.UpdateEmail("yes@.com"));
             Assert.Equal("Invalid email.", ex.Message);
         }
 
@@ -203,7 +204,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.UpdateEmail(""));
+            var ex = Assert.Throws<DomainException>(() => user.UpdateEmail(""));
             Assert.Equal("Invalid email.", ex.Message);
         }
 
@@ -231,7 +232,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act
-            var ex = Assert.Throws<ArgumentException>(() => user.ChangePassword(" "));
+            var ex = Assert.Throws<DomainException>(() => user.ChangePassword(" "));
             var errorsList = JsonSerializer.Deserialize<List<string>>(ex.Message);
 
             // Assert
@@ -274,7 +275,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             // Arrange
             var user = CreateValidUser();
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.AssignRole("Manager"));
+            var ex = Assert.Throws<DomainException>(() => user.AssignRole("Manager"));
             Assert.Contains("Role inválida:", ex.Message);
         }
 
@@ -319,7 +320,7 @@ namespace FIAP_Cloud_Games.Tests.Domain.Entities
             var user = CreateValidUser();
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => user.AcquireGame(null));
+            var ex = Assert.Throws<DomainException>(() => user.AcquireGame(null));
             Assert.Equal("Objeto nulo para classe game.", ex.Message);
 
             // Comportamento atual: lança NullReferenceException ao acessar game.Id

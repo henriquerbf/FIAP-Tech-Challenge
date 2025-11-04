@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using FIAP_Cloud_Games.Domain.Entities;
+using FIAP_Cloud_Games.Domain.Exceptions;
 
 namespace FIAP_Cloud_Games.Domain.Entities
 {
@@ -39,7 +40,7 @@ namespace FIAP_Cloud_Games.Domain.Entities
         public void UpdateName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Invalid name.");
+                throw new DomainException("Invalid name.");
             Name = name;
         }
 
@@ -49,7 +50,7 @@ namespace FIAP_Cloud_Games.Domain.Entities
         public void UpdateEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email) || !EmailRegex.IsMatch(email))
-                throw new ArgumentException("Invalid email.");
+                throw new DomainException("Invalid email.");
 
             Email = email;
         }
@@ -80,7 +81,7 @@ namespace FIAP_Cloud_Games.Domain.Entities
             if (errors.Any())
             {
                 string json = JsonSerializer.Serialize(errors);
-                throw new ArgumentException(json);
+                throw new DomainException(json);
             }
 
             Password = password;
@@ -89,18 +90,18 @@ namespace FIAP_Cloud_Games.Domain.Entities
         public void AssignRole(string role)
         {
             if (string.IsNullOrWhiteSpace(role))
-                throw new ArgumentException("Role não pode ser nula ou vazia.", nameof(role));
+                throw new DomainException("Role não pode ser nula ou vazia.", nameof(role));
 
             if (Enum.TryParse<UserRole>(role.Trim(), true, out var parsedRole))
                 Role = parsedRole;
             else
-                throw new ArgumentException($"Role inválida: '{role}'", nameof(role));
+                throw new DomainException($"Role inválida: '{role}'", nameof(role));
         }
 
         public void AcquireGame(Game game)
         {
             if (game == null)
-                throw new ArgumentException("Objeto nulo para classe game.");
+                throw new DomainException("Objeto nulo para classe game.");
 
             Library ??= new List<Game>();
 

@@ -39,7 +39,7 @@ namespace FIAP_Cloud_Games.Domain.Entities
         public void UpdateTitle(string title)
         {
             if (string.IsNullOrWhiteSpace(title))
-                throw new ArgumentException("Invalid title.");
+                throw new DomainException("Invalid title.");
             Title = title;
         }
 
@@ -51,27 +51,27 @@ namespace FIAP_Cloud_Games.Domain.Entities
         public void UpdateGenre(string genre)
         {
             if (string.IsNullOrWhiteSpace(genre))
-                throw new ArgumentException("Invalid genre.");
+                throw new DomainException("Invalid genre.");
             Genre = genre;
         }
 
         public void UpdatePrice(decimal price)
         {
             if (price < 0)
-                throw new ArgumentException("Price cannot be negative.");
+                throw new DomainException("Price cannot be negative.");
             Price = price;
         }
 
         public void SetDiscount(decimal discount)
         {
             if (discount < 0 || discount > 1)
-                throw new ArgumentException("Discount must be between 0 and 1.");
+                throw new DomainException("Discount must be between 0 and 1.");
             Discount = discount;
         }
         public void SetReleaseDate(DateTime releaseDate)
         {
             if (releaseDate == default)
-                throw new ArgumentException("Release date is required.");
+                throw new DomainException("Release date is required.");
             ReleaseDate = releaseDate;
         }
     }
