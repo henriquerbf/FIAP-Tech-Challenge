@@ -22,16 +22,11 @@ A plataforma **FIAP Cloud Games (FCG)** será expandida nas próximas fases, mas
 ---
 
 ## 🏗️ Arquitetura
-- **Backend:** .NET 8 (Minimal API ou Controllers MVC)  
+- **Backend:** .NET 8 (Controllers MVC)  
 - **Banco de Dados:** SQL Server com Entity Framework Core  
 - **Autenticação:** JWT  
 - **Documentação:** Swagger  
-- **Testes:** xUnit / MSTest / NUnit  
-
-Opcionalmente:  
-- MongoDB para persistência alternativa  
-- Dapper para consultas de alta performance  
-- GraphQL para consultas avançadas  
+- **Testes:** xUnit
 
 ---
 
@@ -47,12 +42,14 @@ Crie um arquivo ".env" na mesma pasta que o "docker-compose.yml" com as variáve
     ACCEPT_EULA=Y
     MSSQL_SA_PASSWORD=YourStrong!Passw0rd
     TZ=America/Sao_Paulo
+    MSSQL_PID=Developer
      
 Como subir o container:
 - Abra o terminal na pasta onde está o "docker-compose.yml"
-- Execute o comando: docker compose -p "fiap_cloud_games" up -d
+- Execute o comando: docker compose -p up -d
 - Verifique se está rodando: docker ps
 
+## 🔑 Instruções para o JWT Authentication
 Configure o JWT:
 - Abra o terminal na pasta do projeto API
 - Necessário definir uma Jwt Key de 256 bits (32 caracteres hexadecimais), como no exemplo abaixo
