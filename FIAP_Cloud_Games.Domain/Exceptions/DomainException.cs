@@ -1,7 +1,8 @@
 ﻿namespace FIAP_Cloud_Games.Domain.Exceptions
 {
-    /// Exceção base para erros de domínio / regras de negócio.
-        public class DomainException : Exception
+
+    public class DomainException : Exception
+
     {
 
         /// Código identificador reutilizável (ex: USER_NAME_REQUIRED).

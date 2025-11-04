@@ -1,8 +1,6 @@
 ﻿using FIAP_Cloud_Games.Domain.Entities;
-using FIAP_Cloud_Games.Domain.Enums;
 using FIAP_Cloud_Games.Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 
 namespace FIAP_Cloud_Games.Infrastructure.Seed
 {
